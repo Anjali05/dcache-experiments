@@ -47,7 +47,13 @@ func main() {
 	numfiles := 0
 
 	for {
-		uuid := uuid.NewV4()
+		uuid, err := uuid.NewV4()
+
+		if err != nil {
+			fmt.Printf("Something went wrong: %s", err)
+            return
+        }
+
 		os.Open(path.Join(*rootdir, uuid.String()))
 		numfiles++
 		if numfiles%1000000 == 0 {
